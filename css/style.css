@@ -1,0 +1,38 @@
+.mt-n1 {
+    margin-top: 1.00rem;
+  }
+
+body{
+  background-color: #3C3B39;
+}
+
+.logo {
+  font-family: "Protest Strike", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: #ffffff;
+}
+
+.navtext {
+  font-family: "Kanit", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: #ffffff;
+}
+
+.word {
+  font-family: "Pridi", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.word2 {
+  font-family: "Pridi", serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+
+
+
+
