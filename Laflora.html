@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>What's Benten Read? วันนี้เบนเทนอ่านอะไร</title>
-    <meta name="keywords" content="เบนเทนอ่านอะไร, แนะนำหนังสือ, รีวิวหนังสือ, ลาฟลอร่า">
-    <meta name="description" content="What's Benten Read? วันนี้เบนเทนอ่านอะไร? อ่านแต่อะไรที่อยากอ่าน ไม่ว่าจะเป็นนิยายหรือการ์ตูนที่น่าสนใจและผมหวังว่าทุกคนก็ชอบด้วยเช่นกัน">
+    <meta name="keywords" content="ลา ฟลอร่า, โรงเรียน, เจ้าหญิง, ชมรม, การ์ตูนไทย">
+    <meta name="description" content="การ์ตูนภาคต่อแสนสนุกของลา ฟลอร่าต่อเนื่องจากการแข่งขันฮันนี่แรลลี่ เมื่อทิวาและผองเพื่อนพร้อมด้วยเพื่อนใหม่จากประเทศไทยจะต้องหาชมรมด้วยตัวเอง">
 
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" y="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -52,6 +52,13 @@
       <div class="col-lg-4">
         <div class="card">
           <img src="images/04.jpg" class="card-img-top img-fluid">
+          <div class="card-body">
+            <h5 class="card-title word">เป็นกำลังใจให้ทิวาค้นหาตัวเอง</h5>
+            <div id="starRating" class="mb-0"></div>
+            <p id="ratingValue" class="text-body-secondary word mb-1">มีคนให้กำลังใจทิวา: 0/5</p>
+            <button class="btn word mb-1" id="submitRating">ตกลง</button>
+            <p id="ratingCount" class="text-body-secondary word mb-0">จำนวนคนให้กำลังใจทิวา: 0</p>
+          </div>
         </div>
       </div>
       <div class="col-lg-8">
@@ -82,5 +89,71 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const pageKey = 'ทิวา'; // คีย์สำหรับหน้านี้
+    const totalRatingsKey = `${pageKey}_totalRatings`;
+    const sumRatingsKey = `${pageKey}_sumRatings`;
+
+    let totalRatings = localStorage.getItem(totalRatingsKey) ? parseInt(localStorage.getItem(totalRatingsKey)) : 0;
+    let sumRatings = localStorage.getItem(sumRatingsKey) ? parseInt(localStorage.getItem(sumRatingsKey)) : 0;
+    let ratingValue = 0;
+    
+    if (totalRatings > 0) {
+        const avgRating = (sumRatings / totalRatings).toFixed(2);
+        document.getElementById('ratingValue').innerText = `มีคนให้กำลังใจทิวา: ${avgRating}/5`;
+        document.getElementById('ratingCount').innerText = `จำนวนคนให้กำลังใจทิวา: ${totalRatings}`;
+    }
+
+    const starContainer = document.getElementById('starRating');
+    for (let i = 1; i <= 5; i++) {
+        const star = document.createElement('span');
+        star.classList.add('star');
+        star.dataset.value = i;
+        star.innerHTML = '★';
+        starContainer.appendChild(star);
+
+        star.addEventListener('mouseenter', () => highlightStars(i));
+        star.addEventListener('mouseleave', () => highlightStars(ratingValue));
+        star.addEventListener('click', () => {
+            ratingValue = i;
+            document.getElementById('ratingValue').innerText = `คะแนนปัจจุบัน: ${ratingValue}/5`;
+        });
+    }
+
+    function highlightStars(rating) {
+        const stars = document.querySelectorAll('.star');
+        stars.forEach(star => {
+            star.classList.toggle('selected', star.dataset.value <= rating);
+        });
+    }
+
+    document.getElementById('submitRating').addEventListener('click', () => {
+        if (ratingValue > 0) {
+            totalRatings++;
+            sumRatings += ratingValue;
+            
+            localStorage.setItem(totalRatingsKey, totalRatings);
+            localStorage.setItem(sumRatingsKey, sumRatings);
+
+            const avgRating = (sumRatings / totalRatings).toFixed(2);
+            document.getElementById('ratingCount').innerText = `จำนวนคนให้กำลังใจทิวา: ${totalRatings}`;
+            document.getElementById('ratingValue').innerText = `มีคนให้กำลังใจทิวา: ${avgRating}/5`;
+            ratingValue = 0;
+            highlightStars(0); 
+        } else {
+            alert('กดดาวก่อนนะครับคนเก่ง^^');
+        }
+    });
+});
+  </script>
+  
+  
+  
+  
   </body>
 </html>

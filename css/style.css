@@ -32,6 +32,26 @@ body{
   font-style: normal;
 }
 
+.star {
+  font-size: 2rem;
+  cursor: pointer;
+  color: gray;
+}
+
+.star.selected {
+  color: gold;
+}
+
+/* เปลี่ยนสีปุ่มตกลง */
+#submitRating {
+  background-color: #3C3B39; /* เปลี่ยนสีพื้นหลัง */
+  color: white; /* เปลี่ยนสีตัวอักษร */
+}
+
+#submitRating:hover {
+  background-color: #131212; /* เปลี่ยนสีเมื่อเลื่อนเมาส์ */
+}
+
 
 
 
